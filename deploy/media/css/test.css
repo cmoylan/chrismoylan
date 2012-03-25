@@ -1,0 +1,5 @@
+@color: blue;
+
+#boom {
+  color: @color;
+}

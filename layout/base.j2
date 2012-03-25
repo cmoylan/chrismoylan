@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  {% block starthead %}{% endblock starthead -%}
+  <meta charset="utf-8">
+
+  <meta http-equiv="X-UA-Compatible" content="{{ resource.meta.compatibility }}">
+
+  <title>{% block title %}{{ resource.meta.title }}{% endblock %}</title>
+
+  <meta name="description" content="{{ resource.meta.description }}">
+  <meta name="author" content="{{ resource.meta.author }}">
+
+  {#
+  {% block favicons %}
+    <link rel="shortcut icon" href="{{ media_url('/favicon.ico') }}">
+  {% endblock favicons -%}
+  #}
+
+  {% block css %}
+  <link rel="stylesheet" href="{{ media_url('css/reset.css') }}">
+  <!--link rel="stylesheet" href="{{ media_url('css/normalize.css') }}"-->
+    <link rel="stylesheet" href="{{ media_url('css/site.css') }}">
+    <link rel="stylesheet" href="{{ media_url('css/syntax.css') }}">
+  {% endblock css -%}
+
+  {% block headjs %}
+    <script src="{{ media_url('js/libs/modernizr-1.7.min.js') }}"></script>
+  {% endblock headjs -%}
+
+  {% block endhead %}{% endblock endhead -%}
+</head>
+<body id="{{ resource.meta.id if resource.meta.id else resource.slug }}">
+
+  {% block content %}
+    <header class="top banner cf">
+      <div class="inner">
+        <div class="left">
+          {% block header %}
+          <a href ="/" title="home" class="logo">chris moylan</a>
+          {% endblock -%}
+        </div>
+
+        {% block nav %}
+        {% from "macros.j2" import render_nav with context %}
+        {{ render_nav(menu, 'main-nav') }}
+        {% endblock %}
+      </div>
+    </header>
+
+    <section class="inner main">
+      {% block main %}
+      {% endblock main %}
+    </section>
+
+    <footer class="inner">
+      Powered by <a href="http://ringce.com/hyde">hyde</a>.
+    </footer>
+  {% endblock content%}
+
+  {# ----- Javascript includes ----- #}
+  {% block js %}
+    {% block scripts %}
+    {% endblock scripts %}
+
+    {# Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb #}
+    <!--[if lt IE 7 ]>
+      <script src="js/libs/dd_belatedpng.js"></script>
+      <script>DD_belatedPNG.fix('img, .png_bg');</script>
+    <![endif]-->
+
+  {% endblock js %}
+</body>
+</html>
