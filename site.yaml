@@ -6,7 +6,7 @@ plugins:
     - hyde.ext.plugins.meta.MetaPlugin
     - hyde.ext.plugins.auto_extend.AutoExtendPlugin
     - hyde.ext.plugins.sorter.SorterPlugin
-    - hyde.ext.plugins.tagger.TaggerPlugin
+#    - hyde.ext.plugins.tagger.TaggerPlugin
     - hyde.ext.plugins.syntext.SyntextPlugin
     - hyde.ext.plugins.textlinks.TextlinksPlugin
     #- hyde.ext.plugins.less.LessCSSPlugin
@@ -45,13 +45,13 @@ sorter:
         filters:
             source.kind: html
             meta.listable: true
-tagger:
-    sorter: time
-    archives:
-        journal:
-            source: journal
-            target: journal/tags
-            template: tagged_posts.j2
-            archive_extension: html
-            meta:
-                listable: false
+#tagger:
+#    sorter: time
+#    archives:
+#        journal:
+#            source: journal
+#            target: journal/tags
+#            template: tagged_posts.j2
+#            archive_extension: html
+#            meta:
+#                listable: false

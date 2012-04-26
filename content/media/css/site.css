@@ -72,20 +72,25 @@ header.top {
   header.top a {
     text-decoration: none; }
   header.top a:hover {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    background: #777; }
+    text-decoration: underline;
+    background: none; }
   header.top .logo {
     color: #73ff87; }
   header.top .nav-link {
     color: #eee; }
+    header.top .nav-link.active {
+      text-decoration: underline; }
   header.top nav {
     text-align: right;
     margin-left: 25%; }
   header.top li {
     display: inline;
-    padding: 0 0.25em; }
+    padding: 0 0.35em; }
 
 section.main {
-  display: block; }
+  display: block;
+  padding: 1em 0; }
+
+footer {
+  padding: 1em;
+  font-size: 1.5rem; }

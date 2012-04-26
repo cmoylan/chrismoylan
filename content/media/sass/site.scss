@@ -8,6 +8,7 @@ $site_width: 700px;
           border-radius: $radii;
 }
 
+
 ///////////////////////////////////////////////////////////////////////
 // Base
 ///////////////////////////////////////////////////////////////////////
@@ -89,6 +90,7 @@ a:hover {
   padding: 0 1em;
 }
 
+
 ///////////////////////////////////////////////////////////////////////
 // Main
 ///////////////////////////////////////////////////////////////////////
@@ -104,8 +106,8 @@ header.top {
     text-decoration: none;
   }
   a:hover {
-    @include border_radius(5px);
-    background: #777;
+    text-decoration: underline;
+    background: none;
   }
   // Color
   .logo {
@@ -113,6 +115,10 @@ header.top {
   }
   .nav-link {
     color: #eee;
+
+    &.active {
+      text-decoration: underline;
+    }
   }
 
   // ----- Positioning -----
@@ -122,13 +128,18 @@ header.top {
   }
   li {
     display: inline;
-    padding: 0 0.25em;
+    padding: 0 0.35em;
   }
 }
 
 
 section.main {
   display: block;
+  padding: 1em 0;
 }
 
+footer {
+  padding: 1em;
+  font-size: 1.5rem;
+}
 
