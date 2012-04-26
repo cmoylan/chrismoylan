@@ -1,0 +1,10 @@
+$link_color: #ccc;
+$site_width: 700px;
+
+@mixin border-radius ($radii) {
+  -webkit-border-radius: $radii;
+     -moz-border-radius: $radii;
+          border-radius: $radii;
+}
+
+
