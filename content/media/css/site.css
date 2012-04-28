@@ -32,7 +32,8 @@ h5 {
   font-weight: bold; }
 
 p {
-  margin: 1em 0; }
+  margin: 2em 0;
+  line-height: 1.5em; }
 
 a, a:visited {
   color: #cccccc; }
