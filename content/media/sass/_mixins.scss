@@ -1,4 +1,5 @@
 $link_color: #15af00;
+$date_color: #666;
 $site_width: 600px;
 
 @mixin border-radius ($radii) {
@@ -6,5 +7,4 @@ $site_width: 600px;
      -moz-border-radius: $radii;
           border-radius: $radii;
 }
-
 
