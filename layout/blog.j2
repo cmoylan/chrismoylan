@@ -1,13 +1,22 @@
 {% extends "base.j2" %}
 
 {% block main -%}
-<article class="post">
-  <h1 class="title">
-    {{ resource.meta.title }}
-  </h1>
-  <time datetime="{{ resource.meta.created.strftime('%Y-%m-%d') }}">
-      {{ resource.meta.created.strftime('%a, %d %b %Y') }}
-  </time>
+<article class="post journal">
+  <header class="journal cf">
+    <time datetime="{{ resource.meta.created.strftime('%Y-%m-%d') }}" class="datetime">
+        {{ resource.meta.created.strftime('%a, %d %b %Y') }}
+    </time>
+    <h1 class="title">
+      {{ resource.meta.title }}
+    </h1>
+    <nav class="journal breadcrumb">
+      <a href="/">Home</a>
+      »
+      <a href="/journal">Journal</a>
+      »
+      {{ resource.meta.title }}
+    </nav>
+  </header>
 
   {% filter markdown|typogrify -%}
     {% mark post -%}

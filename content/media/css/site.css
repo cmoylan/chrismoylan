@@ -32,14 +32,19 @@ h5 {
   font-weight: bold; }
 
 p {
-  margin: 2em 0;
-  line-height: 1.5em; }
+  margin: 0 0 1.5em;
+  line-height: 1.35em; }
 
 a, a:visited {
-  color: #cccccc; }
+  color: #15af00; }
 
 a:hover {
-  background: #333; }
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #15af00;
+  color: #fff;
+  text-decoration: none; }
 
 /* For modern browsers */
 .cf:before,
@@ -61,7 +66,7 @@ a:hover {
   float: right; }
 
 .inner {
-  width: 700px;
+  width: 666px;
   margin: 0 auto;
   padding: 0 1em; }
 
@@ -90,8 +95,26 @@ header.top {
 
 section.main {
   display: block;
-  padding: 1em 0; }
+  padding: 1.5em 0; }
 
 footer {
   padding: 1em;
   font-size: 1.5rem; }
+
+.breadcrumb {
+  font-size: 1.5rem;
+  padding: 5px;
+  border-bottom: 1px solid #666;
+  margin: 1em 0 1.5em;
+  color: #333; }
+
+ul.journal {
+  list-style: none; }
+  ul.journal .posted-time {
+    display: block;
+    float: left;
+    width: 115px; }
+
+header.journal .datetime {
+  font-size: 1.75rem;
+  color: #666; }
