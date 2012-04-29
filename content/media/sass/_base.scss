@@ -6,8 +6,8 @@ html {
 }
 
 body {
-  font: 18px/1.5em cambria, georgia, times, serif;
-  font-size: 2rem;
+  font: 18px/1.5 cambria, georgia, times, serif;
+  font-size: 1.8rem;
 }
 
 h1, h2, h3, h4, h5 {
@@ -15,11 +15,11 @@ h1, h2, h3, h4, h5 {
   line-height: 1.2;
   color:#222;
   margin: 1rem 0;
+  font-weight: normal;
 }
 h1 {
-  font-weight: normal;
-  font-size: 40px;
-  font-size: 4.0rem;
+  font-size: 45px;
+  font-size: 4.5rem;
 }
 h2 {
   font-size: 32px;
@@ -38,7 +38,7 @@ h5 {
 }
 p {
   margin: 0 0 1.5em;
-  line-height: 1.35em;
+  line-height: 1.5;
 }
 
 a, a:visited {
@@ -133,6 +133,28 @@ section.main {
 footer {
   padding: 1em;
   font-size: 1.5rem;
+
+  .inner {
+    border-top: dotted 1px #666;
+    padding: 10px 0;
+  }
+  .footer-nav {
+    list-style: none;
+    text-align: right;
+  }
+  .nav-item {
+    display: inline;
+
+    &:after {
+      content: "-";
+    }
+    &:last-child:after {
+      content: "";
+    }
+    a {
+      padding: 3px 5px;
+    }
+  }
 }
 
 

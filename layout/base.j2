@@ -56,7 +56,12 @@
     <!--<footer class="inner">-->
     <footer>
       <div class="inner">
-        Powered by <a href="http://ringce.com/hyde">hyde</a>.
+        {% block footer_nav %}
+        {% from "macros.j2" import render_nav with context %}
+        {{ render_nav(menu, 'footer-nav') }}
+        {% endblock %}
+
+        {# ----- TODO: badges here ----- #}
       </div>
     </footer>
   {% endblock content%}

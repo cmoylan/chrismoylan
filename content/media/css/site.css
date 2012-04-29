@@ -2,19 +2,19 @@ html {
   font-size: 10px; }
 
 body {
-  font: 18px/1.5em cambria, georgia, times, serif;
-  font-size: 2rem; }
+  font: 18px/1.5 cambria, georgia, times, serif;
+  font-size: 1.8rem; }
 
 h1, h2, h3, h4, h5 {
   font-family: "Palatino", Times, serif;
   line-height: 1.2;
   color: #222;
-  margin: 1rem 0; }
+  margin: 1rem 0;
+  font-weight: normal; }
 
 h1 {
-  font-weight: normal;
-  font-size: 40px;
-  font-size: 4.0rem; }
+  font-size: 45px;
+  font-size: 4.5rem; }
 
 h2 {
   font-size: 32px;
@@ -33,7 +33,7 @@ h5 {
 
 p {
   margin: 0 0 1.5em;
-  line-height: 1.35em; }
+  line-height: 1.5; }
 
 a, a:visited {
   color: #15af00; }
@@ -66,7 +66,7 @@ a:hover {
   float: right; }
 
 .inner {
-  width: 666px;
+  width: 600px;
   margin: 0 auto;
   padding: 0 1em; }
 
@@ -100,6 +100,20 @@ section.main {
 footer {
   padding: 1em;
   font-size: 1.5rem; }
+  footer .inner {
+    border-top: dotted 1px #666;
+    padding: 10px 0; }
+  footer .footer-nav {
+    list-style: none;
+    text-align: right; }
+  footer .nav-item {
+    display: inline; }
+    footer .nav-item:after {
+      content: "-"; }
+    footer .nav-item:last-child:after {
+      content: ""; }
+    footer .nav-item a {
+      padding: 3px 5px; }
 
 .breadcrumb {
   font-size: 1.5rem;
@@ -113,7 +127,7 @@ ul.journal {
   ul.journal .posted-time {
     display: block;
     float: left;
-    width: 115px; }
+    width: 100px; }
 
 header.journal .datetime {
   font-size: 1.75rem;

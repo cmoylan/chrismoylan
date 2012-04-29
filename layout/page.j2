@@ -1,0 +1,18 @@
+{% extends "base.j2" %}
+
+{% block main -%}
+  <header>
+    <h1>{{ resource.meta.title }}</h1>
+    <nav class="journal breadcrumb">
+      <a href="/">Home</a>
+      »
+      {{ resource.meta.title }}
+    </nav>
+  </header>
+
+  {% filter markdown|typogrify -%}
+    {% mark page_content -%}
+      {% block page_content -%}{%- endblock %}
+    {%- endmark %}
+  {%- endfilter %}
+{%- endblock %}
