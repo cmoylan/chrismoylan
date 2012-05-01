@@ -1,3 +1,6 @@
 deploy/
 .sass-cache/
 *.swp
+.run_hyde
+.run_sass
+deploy.mk
