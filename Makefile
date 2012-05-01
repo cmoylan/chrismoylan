@@ -31,6 +31,12 @@ publish: package
 	# go to /www/chrismoylan
 	rsync -arvuz -e "ssh -p $(PORT)" $(SITE_DIR)/ $(HOST):/www/chrismoylan/
 
+unstage:
+	mkdir temp
+	rsync -rv --delete -e "ssh -p $(PORT)" temp/ $(HOST):/www/beta/
+	rm -r temp
+
+
 
 # Always use the targets defined in this file
 .PHONY: clean
