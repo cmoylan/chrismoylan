@@ -1,5 +1,6 @@
 deploy/
 .sass-cache/
+.hyde_deps
 *.swp
 .run_hyde
 .run_sass
