@@ -1,5 +1,4 @@
 HYDE_CONFIG = production.yaml
-DEPLOY_CONFIG = .deploy
 MEDIA_DIR = content/media
 SITE_DIR = deploy
 TO_REMOVE = $(SITE_DIR)/media/sass $(SITE_DIR)/media/.sass-cache
@@ -40,4 +39,3 @@ unstage:
 
 # Always use the targets defined in this file
 .PHONY: clean
-.PHONY: deploy
