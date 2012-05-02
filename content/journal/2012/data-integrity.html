@@ -1,0 +1,40 @@
+---
+title: Data Integrity
+description: Computers can be funny sometimes
+created: !!timestamp '2012-05-01 23:23:00'
+---
+
+
+You may have noticed that my website has been pretty barren lately. I suffered
+massive data loss when the hard drive in my home server died. I had been running
+the server as a virtual machine in the hopes that as long as I backed up the
+disk image I would be safe from hardware failures. I would have been correct if
+I had bothered to back up the disk image. So in late January of this year the
+drive failed, the server crashed and I lost everything.
+
+When I realized the server wasn't coming back on-line, I put a simple page up so
+that I wouldn't lose my place at the top of Google for "Chris Moylan" searches.
+I also faced a tricky recovery process. If it had just been my data I would have
+shrugged it off and started fresh. But I was also hosting sites for friends,
+including the blog of my friend [Matt](http://mattbutterfield.com) who had
+_years_ of entries and images.
+
+I managed to get everything back in some form or another. Luckily I recovered
+all of Matt's data and returned it to him. He promptly set up his blog on
+a [different host](https://github.com/m-butterfield/m-butterfield.github.com)
+and I don't blame him at all. I decided to pay for email hosting (I had been
+hosting it myself) and found an [awesome provider](http://www.tuffmail.com). In
+the future, if I want to host my own email server, I can use their service as
+a fallback. I took the time to migrate my site over to
+[Hyde](http://hyde.github.com/), a static site generator. I had been using
+[Pylons](http://www.pylonsproject.org/), a Python MVC framework, but decided
+I didn't need all of that complexity.
+
+I had some free time last weekend so I set the server up again. I'm going with
+the same setup - a virtual server running on top of a physical server. Unlike
+last time, I am going to stick with some sort of backup schedule or add a RAID
+setup. This incident hasn't deterred me from running a server out of my closet.
+It was a great learning experience, one that I plan to continue. But I now
+realize that any system with non-trivial uptime has a non-trivial risk of
+catastrophic failure. If you acknowledge this and plan for the day when your data
+goes out the window, it's not big deal.
