@@ -1,7 +1,12 @@
+// ----- Colors ----- //
 $link_color: #15af00;
 $date_color: #666;
 $site_width: 600px;
 
+// ----- Spacing ----- //
+$p_margin_bottom: 1.5em;
+
+// ----- Mixins ----- //
 @mixin border-radius ($radii) {
   -webkit-border-radius: $radii;
      -moz-border-radius: $radii;

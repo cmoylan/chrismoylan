@@ -24,3 +24,17 @@ header.journal {
     color: $date_color;
   }
 }
+
+blockquote {
+  margin: 0 0 $p_margin_bottom;
+  padding: 10px 20px 10px 40px;
+  background: #ddd;
+  color: #444;
+  border-left: 3px solid $link_color;
+  font-style: italic;
+
+  p {
+    margin: 0;
+    line-height: 1.75;
+  }
+}
