@@ -7,6 +7,11 @@ CSS_DIR = $(MEDIA_DIR)/css
 
 include deploy.mk
 
+# TODO: 
+# which sass > .run_sass
+# which hyde > .run_hyde
+# chmod +x .run_sass .run_hyde
+
 # Default target
 all: build
 
