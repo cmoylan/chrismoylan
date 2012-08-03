@@ -38,3 +38,11 @@ blockquote {
     line-height: 1.75;
   }
 }
+
+figure {
+  margin: 0;
+
+  figcaption {
+    display: none;
+  }
+}

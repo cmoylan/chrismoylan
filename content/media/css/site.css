@@ -145,3 +145,8 @@ blockquote {
   blockquote p {
     margin: 0 0 1.5em;
     line-height: 1.75; }
+
+figure {
+  margin: 0; }
+  figure figcaption {
+    display: none; }

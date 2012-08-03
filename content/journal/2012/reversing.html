@@ -1,0 +1,47 @@
+---
+title: Reversing
+description: When the manual isn't good enough
+created: !!timestamp '2012-08-02 11:17:00'
+---
+
+
+I was recently tasked with doing some web scraping. That is, taking a web page
+and pulling out interesting bits of information. Scraping is usually a last
+resort, or in our case, the only option when a propper API doesn't exist.
+
+The particular data we were interested in involved automobiles. (Big surprise.)
+Most of it was easy to pick out of the HTML, except for one thing - the VIN. VIN
+is Vehical Identification Number and is unique to every car. For whatever
+reason, the site I was scraping had obscurred the VIN - probably to deter people
+like me. They were sending the VIN in an obfuscated form and then decoding it
+with Javascript in the browser. Our script was getting the raw HTML without
+executing any of the Javascript.
+
+As shady as what I'm describing sounds, I had a legitimate reason for scraping
+the data and permission from the owner, so I set to work trying to figure out
+how they were encoding the VIN. After a few minutes of digging, I came across the
+following code which was operating on the HTML with the encoded VIN:
+
+{% syntax javascript %}
+for (var i = 0; i < str.length; ) {
+  // holds each letter (2 digits)
+  var letter = "";
+  letter = str.charAt(i) + str.charAt(i + 1);
+
+  // build the real decoded value
+  res += String.fromCharCode(parseInt(letter, 16));
+  i += 2;
+}
+{% endsyntax %}
+
+Can you tell what's going on? Every 2 characters represent a hex number which,
+when converted to decimal represents an ascii character code. I implemented the
+decode function in Ruby like so:
+
+{% syntax ruby %}
+chunks = encoded_vin.scan(/.{2}/)
+chunks.collect{ |chunk| chunk.to_i(16).chr }.join
+{% endsyntax %}
+
+I threw a few tests around it, added it to the scrape script and had some
+victory coffee.
