@@ -7,10 +7,6 @@ CSS_DIR = $(MEDIA_DIR)/css
 
 include deploy.mk
 
-# TODO: 
-# which sass > .run_sass
-# which hyde > .run_hyde
-# chmod +x .run_sass .run_hyde
 
 # Default target
 all: build
@@ -39,6 +35,11 @@ unstage:
 	mkdir temp
 	rsync -rv --delete -e "ssh -p $(PORT)" temp/ $(HOST):/www/beta/
 	rm -r temp
+
+bootstrap:
+	echo "`which sass` \$$*" > .run_sass
+	echo "`which hyde` \$$*" > .run_hyde
+	chmod +x .run_sass .run_hyde
 
 
 
