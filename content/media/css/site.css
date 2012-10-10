@@ -36,6 +36,12 @@ p {
   margin: 0 0 1.5em;
   line-height: 1.5; }
 
+sup {
+  vertical-align: super; }
+
+sub {
+  vertical-align: sub; }
+
 a, a:visited {
   color: #15af00; }
 
@@ -134,6 +140,9 @@ ul.journal {
 header.journal .datetime {
   font-size: 1.75rem;
   color: #666666; }
+
+.post ul {
+  margin: 0 0 1.5em 1em; }
 
 blockquote {
   margin: 0 0 1.5em;

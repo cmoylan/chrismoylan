@@ -25,6 +25,12 @@ header.journal {
   }
 }
 
+.post {
+  ul {
+    margin: 0 0 1.5em 1em;
+  }
+}
+
 blockquote {
   margin: 0 0 $p_margin_bottom;
   padding: 20px 20px 1px 40px;

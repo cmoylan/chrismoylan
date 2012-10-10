@@ -41,6 +41,12 @@ p {
   margin: 0 0 $p_margin_bottom;
   line-height: 1.5;
 }
+sup {
+  vertical-align: super;
+}
+sub {
+  vertical-align: sub;
+}
 
 a, a:visited {
   color: $link_color;
