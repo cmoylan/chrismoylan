@@ -10,6 +10,7 @@
 
   <meta name="description" content="{{ resource.meta.description }}">
   <meta name="author" content="{{ resource.meta.author }}">
+  <meta name="viewport" content="width=device-width">
 
   {#
   {% block favicons %}
@@ -18,10 +19,11 @@
   #}
 
   {% block css %}
-  <link rel="stylesheet" href="{{ media_url('css/reset.css') }}">
-  <!--link rel="stylesheet" href="{{ media_url('css/normalize.css') }}"-->
-    <link rel="stylesheet" href="{{ media_url('css/site.css') }}">
-    <link rel="stylesheet" href="{{ media_url('css/syntax.css') }}">
+    <link rel="stylesheet" href="{{ media_url('css/reset.css') }}" />
+    <!--link rel="stylesheet" href="{{ media_url('css/normalize.css') }}"-->
+    <link rel="stylesheet" href="{{ media_url('css/site.css') }}" />
+    <link rel="stylesheet" href="{{ media_url('css/syntax.css') }}" />
+    <link rel="stylesheet" href="{{ media_url('css/mobile.css') }}" media="only screen and (max-device-width: 600px)" />
   {% endblock css -%}
 
   {% block headjs %}
