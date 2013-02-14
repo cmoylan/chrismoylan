@@ -14,12 +14,12 @@ plugins:
 context:
     data:
         menu:
-            -
-                name: projects
-                description: Projects
-                css_class: projects
-                type: node
-                url: projects
+#            -
+#                name: projects
+#                description: Projects
+#                css_class: projects
+#                type: node
+#                url: projects
             -
                 name: journal
                 description: Journal
