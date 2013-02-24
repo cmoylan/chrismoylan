@@ -1,4 +1,5 @@
-HYDE_CONFIG = production.yaml
+#HYDE_CONFIG = production.yaml
+HYDE_CONFIG = site.yaml
 MEDIA_DIR = content/media
 SITE_DIR = deploy
 TO_REMOVE = $(SITE_DIR)/media/sass $(SITE_DIR)/media/.sass-cache
@@ -18,6 +19,9 @@ build: clean
 	./.run_sass --update $(SASS_DIR):$(CSS_DIR)
 	./.run_hyde gen -c $(HYDE_CONFIG)
 	rm -rf $(TO_REMOVE)
+
+serve: build
+	./.run_hyde serve
 
 package: build
 	# minify and compress js and css
