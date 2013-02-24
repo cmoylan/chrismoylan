@@ -33,52 +33,59 @@
   {% block endhead %}{% endblock endhead -%}
 </head>
 <body id="{{ resource.meta.id if resource.meta.id else resource.slug }}">
+  <div class="wrapper">
 
-  {% block content %}
-    <header class="top banner cf">
-      <div class="inner">
-        <div class="left">
-          {% block header %}
-          <a href ="/" title="home" class="logo">chris moylan</a>
-          {% endblock -%}
+    {% block content %}
+      <header class="top banner cf">
+        <div class="inner">
+          <div class="left">
+            {% block header %}
+            <a href ="/" title="home" class="logo">chris moylan</a>
+            {% endblock -%}
+          </div>
+
+          {% block nav %}
+          {% from "macros.j2" import render_nav with context %}
+          {{ render_nav(menu, 'main-nav') }}
+          {% endblock %}
         </div>
+      </header>
 
-        {% block nav %}
-        {% from "macros.j2" import render_nav with context %}
-        {{ render_nav(menu, 'main-nav') }}
-        {% endblock %}
-      </div>
-    </header>
+      <section class="inner main">
+        {% block main %}
+        {% endblock main %}
+      </section>
 
-    <section class="inner main">
-      {% block main %}
-      {% endblock main %}
-    </section>
+      <!--<footer class="inner">-->
+      <footer>
+        <div class="inner">
+          {% block footer_nav %}
+          {% from "macros.j2" import render_nav with context %}
+          {{ render_nav(menu, 'footer-nav') }}
+          {% endblock %}
 
-    <!--<footer class="inner">-->
-    <footer>
-      <div class="inner">
-        {% block footer_nav %}
-        {% from "macros.j2" import render_nav with context %}
-        {{ render_nav(menu, 'footer-nav') }}
-        {% endblock %}
+          {# ----- TODO: badges here ----- #}
+        </div>
+      </footer>
+    {% endblock content%}
 
-        {# ----- TODO: badges here ----- #}
-      </div>
-    </footer>
-  {% endblock content%}
+    {# ----- Javascript includes ----- #}
+    {% block js %}
+      {% block scripts %}
+      {% endblock scripts %}
 
-  {# ----- Javascript includes ----- #}
-  {% block js %}
-    {% block scripts %}
-    {% endblock scripts %}
+      {# Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb #}
+      <!--[if lt IE 7 ]>
+        <script src="js/libs/dd_belatedpng.js"></script>
+        <script>DD_belatedPNG.fix('img, .png_bg');</script>
+      <![endif]-->
 
-    {# Fix any <img> or .png_bg bg-images. Also, please read goo.gl/mZiyb #}
-    <!--[if lt IE 7 ]>
-      <script src="js/libs/dd_belatedpng.js"></script>
-      <script>DD_belatedPNG.fix('img, .png_bg');</script>
-    <![endif]-->
+    {% endblock js %}
 
-  {% endblock js %}
+  </div> <!-- wrapper -->
+
+  <div class="praetorians">
+    <a href="#">&pi;</a>
+  </div>
 </body>
 </html>
