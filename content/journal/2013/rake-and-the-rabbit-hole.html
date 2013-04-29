@@ -1,0 +1,55 @@
+---
+title: Rake and the Rabbit Hole
+description: It's turtles all the way down
+created: !!timestamp '2013-04-26 19:33:00'
+---
+
+
+Railroad tracks in the US and England are spaced 4 feet 8.5 inches apart. The
+[legend](http://www.truthorfiction.com/rumors/r/railwidth.htm) as to why this is
+goes:
+
+> The standard distance between railroad rails in the U.S. is four-feet,
+  eight-and-a-half inches.  Why?  Because that's what it was in England.  Why?
+  Because that's the gauge the tramways used before the railroads.  Why?  Because
+  the tramways were built using the same tools as wagon-builders and that's how
+  wide the wagon wheels were spaced.  Why?  Because the old roads in England had
+  ruts that the wheels needed to accommodate.  Why?  Because the ruts were made by
+  Imperial Roman chariots. Why were the chariots that width? Because they were
+  built wide enough to accomodate two horses standing side to side.
+
+Apparently this is not historically accurate, but for our purposes that doesn't
+matter. It's a good example of chasing an answer down the rabbit hole. I was
+reminded of this the other day when I was pairing with a friend who is new to
+Rails. I used the command `rake routes` during our session and she asked "What
+is rake?"
+
+The answer is simple: "`rake` is `make` implemented in Ruby."
+
+I chuckled to myself because even though that's the correct answer, it doesn't
+tell us anything.
+
+"Well, what is `make`?"
+
+I had to think for a second. What is `make`? "Well, `make` is a program that
+lets you automate common tasks for building software." This is also true, but it
+doesn't tell us the whole truth.  One of the main functions of `make` is to
+compile your software.
+
+"What is compiling software?"
+
+In order to answer this, we need to look at two of the ways computers run
+programs. The computer doesn't understand source code, you have to translate it
+first into a format called binary which the computer undestands. The difference
+between interpreting and compiling is when this translation takes place. With
+compilation, the translation takes place up front. You pass your source code to
+a compiler and it returns a binary file that the computer can run. With
+interpretation, you run your source code directly (through an interpreter) and
+it gets translated on the fly. 
+
+"Well why would anyone want to compile? Isn't interpretation better?"
+
+It is and it isn't. Speaking in sweeping generalizations, interpreters give you
+more flexibility but are slower. Compiled code is usually faster, but more
+rigid. In addition, the compiler only has to translate the source code once, whereas
+the interpreter has to translate it every time the program is run.
