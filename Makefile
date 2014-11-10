@@ -1,6 +1,5 @@
-#HYDE_CONFIG = production.yaml
+HYDE_CONFIG = production.yaml
 #HYDE_CONFIG = site.yaml
-HYDE_CONFIG = site.yaml
 MEDIA_DIR = content/media
 SITE_DIR = deploy
 TO_REMOVE = $(SITE_DIR)/media/sass $(SITE_DIR)/media/.sass-cache
