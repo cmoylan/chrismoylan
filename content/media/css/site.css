@@ -33,8 +33,17 @@ h5 {
   font-weight: bold; }
 
 p {
-  margin: 0 0 1.5em;
+  margin: 1.5em 0;
   line-height: 1.5; }
+  p code {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #d6ffd4;
+    font-size: 1.5rem;
+    padding: 1px 2px; }
+    p code:hover {
+      background-color: #aeffaa; }
 
 sup {
   vertical-align: super; }
@@ -158,9 +167,11 @@ ul.journal {
     width: 115px;
     color: #666666; }
 
-header.journal .datetime {
-  font-size: 1.75rem;
-  color: #666666; }
+header.journal {
+  margin-bottom: -1.5em; }
+  header.journal .datetime {
+    font-size: 1.75rem;
+    color: #666666; }
 
 .post ul {
   margin: 0 0 1.5em 1em; }
@@ -176,9 +187,22 @@ blockquote {
     margin: 0 0 1.5em;
     line-height: 1.75; }
 
+.codebox {
+  margin: 1.5em 0; }
+
 figure {
-  width: 100%;
   margin: 0;
   overflow: auto; }
+  figure.code {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #eee;
+    padding: 10px;
+    font-size: 1.5rem; }
+    figure.code:hover {
+      background-color: #e3e3e3; }
   figure figcaption {
     display: none; }
+  figure pre {
+    margin-bottom: -1.5em; }

@@ -17,8 +17,11 @@ ul.journal {
 // Entries
 ///////////////////////////////////////////////////////////////////////
 header.journal {
+  margin-bottom: -$p_margin_bottom;
+
   .title {
   }
+
   .datetime {
     font-size: 1.75rem;
     color: $date_color;
@@ -45,12 +48,31 @@ blockquote {
   }
 }
 
+.codebox {
+  margin: $p_margin_bottom 0;
+}
+
 figure {
-  width: 100%;
+  //width: 100%;
   margin: 0;
   overflow: auto;
 
+  &.code {
+    @include border_radius(3px);
+    background-color: #eee;
+    padding: 10px;
+    font-size: 1.5rem;
+
+    &:hover {
+      background-color: #e3e3e3;
+    }
+  }
+
   figcaption {
     display: none;
+  }
+
+  pre {
+    margin-bottom: -$p_margin_bottom;
   }
 }

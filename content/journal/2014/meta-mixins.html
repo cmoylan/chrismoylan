@@ -1,0 +1,240 @@
+---
+title: Meta Mixins
+description: Dude what does mine say?
+created: !!timestamp '2014-11-08 08:39:00'
+---
+
+Let's pretend that we're Rails developers at Widgets Inc, and our boss asks us
+to figure out which month was the best for widget production. Let's assume
+there's nothing complicated about our Widget model, and our back end is some SQL
+flavor. We'll also assume that timezones don't exist for simplicity.
+
+{% syntax ruby %}
+class Widget < ActiveRecord::Base
+  # nothing complicated	       
+end
+{% endsyntax %}
+
+## Grouping
+
+To do this, we'll get the count of Widget objects and group that by month. We'll
+assume we have a `created_at` column on our Widgets table.
+
+{% syntax text %}
+pry(main)> Widget.group('month(created_at)').count
+=> {3=>20, 4=>15}
+{% endsyntax %}
+
+This isn't quite what we want. Say our widget counts look like this:
+
+{% syntax text %}
+2013:
+March - 10
+April - 14
+
+2014:
+March - 10
+April - 1
+{% endsyntax %}
+
+Our query tells us we created 20 widgets in March and 15 in April, which is
+technically correct, but probably not what our boss wants. We need to add the
+year to the grouping. We can pass this as an array to `group`.
+
+{% syntax text %}
+pry(main)> Widget.group(['year(created_at)', 'month(created_at)']).count
+=> {[2013, 3]=>10, [2013, 4]=>14, [2014, 3]=>10, [2014, 4]=>1}
+{% endsyntax %}
+
+That looks better! We can clearly see that April 2013 was the biggest month for
+widget production. Let's add that to our model.
+
+{% syntax ruby %}
+class Widget < ActiveRecord::Base
+  def self.best_month_ever
+    group(['year(created_at)', 'month(created_at)']).count
+  end
+end
+{% endsyntax %}
+
+We want to call `best_month_ever` directly on `Widget`, so define it as a
+class method.  Keep in mind that the preceding code will return a hash of all
+counts for all months.  Since `Hash` includes the `Enumerable` module, we can
+call `.max` on the result set.  That will work, but it would be nice if our
+database results were already sorted.  Let's look at the query that ActiveRecord
+generates and see how we could accomplish that.
+
+{% syntax text %}
+pry(main)> Widget.group(['year(created_at)', 'month(created_at)']).count
+(0.3ms)  SELECT COUNT(*) AS count_all,
+                year(created_at) AS year_created_at,
+                month(created_at) AS month_created_at
+         FROM `widgets` GROUP BY year(created_at), month(created_at)
+{% endsyntax %}
+
+You can see that our count is aliased as 'count_all'. Let's try ordering by that.
+
+{% syntax text %}
+pry(main)> Widget.group(['year(created_at)','month(created_at)']).order('count_all DESC').count
+(0.7ms)  SELECT COUNT(*) AS count_all,
+                year(created_at) AS year_created_at,
+                month(created_at) AS month_created_at
+         FROM `widgets` GROUP BY year(created_at), month(created_at)
+         ORDER BY count_all DESC
+=> {[2013, 4]=>14, [2013, 3]=>10,  [2014, 3]=>10, [2014, 4]=>1}
+{% endsyntax %}
+
+That pushed the sorting to the database. This solution is somewhat brittle
+because if future versions of ActiveRecord change how counts are aliased,
+this code could stop working. As far as I know there is no way to set
+the alias that the `.count` method will use. Considering there will be
+12 counts per year, even if we've been producing widgets for 100 years,
+that's going to be a relatively small hash. I think in this case, it's
+fine to do the sort on the hash, rather than in the database.
+
+{% syntax ruby %}
+def self.best_month_ever
+  group(['year(created_at)', 'month(created_at)']).count.max
+end
+{% endsyntax %}
+
+## Caching
+
+So far, so good. If you think about it though, the historical data isn't going
+to change, so there's no need to run that query every time. The only count that
+changes is the count for the current month (as we continue to produce widgets.)
+Let's cache the historical record, and just get the count for the current month.
+If the current month is our 'best month ever' we'll break the cache and
+update the record. The first piece is a scope for the current month.
+
+{% syntax ruby %}
+scope :this_month, -> { where('created_at > ?', Time.now.beginning_of_month) }
+
+# Widget.this_month.count
+{% endsyntax %}
+
+Now that we have the count for the current month, we can make the modifications
+to `best_month_ever`.
+
+{% syntax ruby %}
+def self.best_month_ever
+  record = Rails.cache.fetch('monthly_widget_record') do
+    group(['year(created_at)', 'month(created_at)']).count.max
+  end
+
+  this_month = Widget.this_month.count
+  Rails.cache.delete('monthly_widget_record') if record.last < this_month
+
+  [record, this_month].max
+end
+{% endsyntax %}
+
+`record` is an `OrderedHash` which will look something like this
+`[[2013, 4], 14]`, so when comparing it to `this_month` (which is just
+an integer) we only care about the count, which is the last item in
+the array. That's where the `.last` comes from.
+
+## Scope creep
+
+We deliver this solution and the management loves it. "But wait, we want weekly
+records as well," they say. It's probably a good idea at this point to make the
+code a little more flexible. It's simple to get the weekly record, only the
+`.group` call has to change. We could copy/paste and be done in 5 seconds, but
+what fun is that? Let's rewrite this to be flexible. We'll modify the method
+to accept a time frame, something like 'month', 'week' or 'day'.
+
+{% syntax ruby %}
+def self.record_for(time_frame)
+  time_frames = ['month', 'week', 'day']
+  raise ArgumentError, 'Unsupported time frame' unless time_frame.in?(time_frames)
+
+  record = Rails.cache.fetch("widget_#{time_frame}_record") do
+    group(['year(created_at)', "#{time_frame}(created_at)"]).count.max
+  end
+
+  this_period = self.send("this_#{time_frame}").count
+  Rails.cache.delete("widget_#{time_frame}_record") if record.last < this_period
+
+  [record, this_period].max
+end
+{% endsyntax %}
+
+Since we're passing the time_frame argument directly to the database, we need to
+make sure that only the supported date functions get through. We'll raise an
+argument error if we see anything other than 'month', 'week' or 'day'. Don't
+forget to set up the scopes too. I won't go through them because they're almost
+identical to the `this_month` scope that we already defined.
+
+## Getting meta
+
+One of the beautiful things about Ruby and Rails is how expressive the code can
+be. Right now, we can call `Widget.record_for('month')`, which is fine but I'm
+going to add a little syntactic sugar on top of that. I'd rather call
+`Widget.record_for_month`. There's really no difference, but it's ridiculously
+easy to metaprogram Ruby, so let's add a few aliases. Since we need to pass
+an argument into `record_for` we can't just use `alias_method`, but that is fine.
+
+{% syntax ruby %}
+class Widget < ActiveRecord::Base
+
+  %w(month day week).each do |time_frame|
+    define_method("record_for_#{time_frame}") do
+      record_for time_frame
+    end
+  end
+
+  def self.record_for(time_frame)
+    ...
+  end
+end
+{% endsyntax %}
+
+## Getting crazy
+
+That's pretty good. We have a flexible method and some nice syntactic sugar.
+Management loves it. Now they want historical record counts on all of our
+models. Time to make this a module and get just a little more meta.
+
+{% syntax ruby %}
+# app/models/concerns/recordable.rb
+module Recordable
+  extend ActiveSupport::Concern
+
+  module ClassMethods
+    RECORD_TIME_FRAMES = %w(month day week)
+
+    RECORD_TIME_FRAMES.each do |time_frame|
+      scope "this_#{time_frame}" -> { where('created_at > ?', Time.now.send("beginning_of_#{time_frame}"))}
+
+      define_method("record_for_#{time_frame}") do
+        record_for time_frame
+      end
+    end
+
+    def record_for(time_frame)
+      raise ArgumentError, 'Unsupported time frame' unless time_frame.in?(RECORD_TIME_FRAMES)
+
+      cache_key = "#{self.name.downcase}_#{time_frame}_record"
+
+      record = Rails.cache.fetch(cache_key) do
+        group(['year(created_at)', "#{time_frame}(created_at)"]).count.max
+      end
+    
+      this_period = self.send("this_#{time_frame}").count
+      Rails.cache.delete(cache_key) if record.last < this_period
+    
+      [record, this_period].max
+    end
+  end
+end
+
+# app/models/widget.rb
+class Widget < ActiveRecord::Base
+  include Recordable
+end
+{% endsyntax %}
+
+It's easy to go overboard with metaprogramming, especially when it's this easy.
+But I think our solution is flexible without being difficult to understand. All
+that's left to do is submit a pull request and enjoy a hard-earned cup of
+coffee.
