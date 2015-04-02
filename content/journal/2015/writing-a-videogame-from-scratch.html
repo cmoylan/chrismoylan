@@ -1,0 +1,96 @@
+---
+title: Writing a video game from scratch
+description: Why? Just why?
+created: !!timestamp '2015-4-01 18:05:00'
+---
+
+This is a project I started about a year ago. When I tell people about
+it I get one of two responses:
+
+{% syntax text %}
+"Oh cool, Unity is great isn't it?"
+{% endsyntax %}
+
+{% syntax text %}
+"You're not writing pixels directly to video memory? You suck."
+{% endsyntax %}
+
+Both statements are
+true. [Unity](https://en.wikipedia.org/wiki/Unity_%28game_engine%29)
+is cool, even though I'm not using it. And I am not writing pixels
+directly to video memory, so it's technically not from 'scratch'. The
+project came about when I realized that even though I've been
+programming computers for a while, I have no idea how graphics
+programming works. It was a chance to learn a new field and get a
+little closer to the hardware - so many of us make our living on port
+80 these days.
+
+## Decisions ##
+
+I made a deliberate choice not to use any existing game engine. My
+goal is not to make a best-selling video game, but to learn how game
+engines work. The best way to learn how to do something is to do it
+yourself. But I didn't want to go _too_ far down the rabbit hole, so I
+chose to use [OpenGL](https://en.wikipedia.org/wiki/Opengl) for
+graphics. This allows me to work at a comfortable level of abstraction
+where my code will work on any platform that can run OpenGL.  I want
+to draw things, not worry about variations in graphics cards.
+
+The other choice I made was to throw mobile out the window. In my
+opinion, mobile games are not games, just clever ads wrapped up in
+psychological manipulation. Games belong on big screens - monitors and
+TVs.
+
+OpenGL comes with a C API and wrappers for every language on Earth. I
+decided to use C++ because it's pretty standard in the game
+industry. I also don't know it that well, so that was another
+opportunity to learn something new.
+
+## Design ##
+
+So what does a basic game consist of?
+
+* A character that the user can manipulate
+* An objective
+* A win state
+
+That's about it. Sounds pretty easy right? Let's break those down a
+bit more:
+
+* A character the user can manipulate
+* Input handling to convert external input into character movement
+* Code to prevent the character from going out of bounds
+* Forces external to the character, preventing it from reaching the win state
+* Code to tell those forces how to do that
+* A system that allows the enemies to impede the character and vice versa
+* An objective
+* A score to indicate how far along the objective you are
+* A win state
+* Code to determine if the player has won
+* Code to draw all of those things to the screen
+* A run loop
+* (optional but probably necessary) A menu - or some way to quit
+* (optional but probably necessary) A pause state
+* If any kind of physics are involved, some kind of physics engine
+
+## Implementation ##
+
+With all of that in mind, I set out to create the simplest game I
+could, which was a stripped-down version of Space Invaders. [And I
+finished it!](https://github.com/cmoylan/star-commander) The
+completed game has a beautiful scrolling space background, 2 ships
+that fire at each other, collision detection to figure out if one hits
+the other, a score based on the number of hits, a win state based on
+the score, a pause state, a menu, and simple rules (I won't dare call
+it AI) for how the enemy reacts to the player.
+
+The code checks in at just under 1500 lines. I learned a lot about
+graphics and geometry.  I also learned a lot about C++, libraries,
+compilers and debugging. For a hobby project that I was trying to
+finish quickly, the code is actually decent. And now that I have that
+under my belt, I'm working on a new game. This one will be a 2D
+platformer that supports [Tiled](http://www.mapeditor.org)
+levels. Planned features include gravity, death, items, a better
+weapons system, and more than one enemy. Stay tuned.
+
+![Star Commander](http://files.chrismoylan.com/images/journal/videogame/star-commander.gif)
