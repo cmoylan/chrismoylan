@@ -4,4 +4,5 @@ deploy/
 *.swp
 .run_hyde
 .run_sass
+.virtualenv/
 deploy.mk
