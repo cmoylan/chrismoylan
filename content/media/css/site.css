@@ -166,13 +166,13 @@ ul.journal {
     display: block;
     float: left;
     width: 115px;
-    color: #666666; }
+    color: #666; }
 
 header.journal {
   margin-bottom: -1.5em; }
   header.journal .datetime {
     font-size: 1.75rem;
-    color: #666666; }
+    color: #666; }
 
 .post ul {
   margin: 0 0 1.5em 1em; }
@@ -207,3 +207,5 @@ figure {
     display: none; }
   figure pre {
     margin-bottom: -1.5em; }
+
+/*# sourceMappingURL=site.css.map */
