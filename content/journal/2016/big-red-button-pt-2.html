@@ -1,7 +1,7 @@
 ---
 title: The Big Red Button - Part 2
 description: TURN YOUR KEY SIR
-created: !!timestamp '2016-05-01 13:23:00'
+created: !!timestamp '2016-05-28 13:23:00'
 ---
 
 [A long time ago](/journal/2013/big-red-button-pt-1) I got some hardware from a
@@ -79,11 +79,12 @@ void blink(int led) {
 }
 {% endsyntax %}
 
-Debouncing works the same way. If the button has changed states remained in the new
-state for a certain amount of time, you can safely assume it was actually pushed.
-Because the button is a mechanical device the connection when it is first pressed
-or released may 'bounce' open and closed. You need to account for this in the
-program, otherwise there may be intermittent bugs.
+Debouncing works the same way. If the button has changed states and
+remained in the new state for a certain amount of time, you can safely
+assume it was actually pushed.  Because the button is a mechanical
+device the connection when it is first pressed or released may
+'bounce' open and closed. You need to account for this in the program,
+otherwise there may be intermittent bugs.
 
 {% syntax c %}
 long lastDebounceTime = 0; // last time the input was toggled

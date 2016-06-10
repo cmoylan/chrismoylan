@@ -1,0 +1,76 @@
+---
+title: Restraint and the Right Thing
+description: YAGNI
+created: !!timestamp '2015-6-24 22:29:00'
+---
+
+In computer programming, there is this idea called the Right Thing - that for a
+given programming problem there is one, and only one, correct solution. This
+idea is mostly obsolete, but many programers still believe it.
+
+According to Steven Levy in the book [Hackers](), the idea of the Right Thing sprang
+up at MIT in the 1960s. At that point, the idea was valid, but there are some
+points to note about the programming environment at the that time and place:
+
+1. Everyone had similar technical abilities
+2. Everyone was working on the same architecture
+3. Memory and processing power were extremely limited
+
+Given that environment, it is easy to see how one could conclude that there was
+only one correct way to solve a given problem. If you only have a kilobyte of
+memory, you cut corners to get everything to fit. If your CPU is running in the
+kilohertz, you make every clock cycle count. And so you ended up with programs
+that were as short and clever as possible to make the best use of the limited
+resources. This was okay, because the programming group was a monoculture,
+and your peers could be expected to understand and appreciate your cleverness.
+
+But those constraints no longer apply. Let's constrast that environment with our
+current one:
+
+1. Everyone has different technical abilities
+2. Everyone is probably working on the same architecture, but may be working on
+   different architectures
+3. Memory and processing power are vast, readily-available, and cheap.
+
+Every constraint placed on the early programmers is now gone. Software teams can
+choose how to optimize their programming environments. The Right Thing is now
+relative. Maybe you're working on a problem that takes a lot of processing
+power, so you optimize for that. Maybe you deal with terabytes of data, so
+memory and space are still constraints. If you work with embedded systems, you
+will have to deal with both.
+
+Realistically though, most of us are web developers working on problems that are
+neither new nor novel. We take data, store it, and return it at a later
+time. That's it. Given that environment, the Right Thing is different. The
+biggest cost on a software team is the programmers themselves. Therefore, care
+should be taken to write code that is easy to understand and easy to
+maintain. If that is done, the pool of programmers available is as large as
+possible. Clever code requies clever programmers to untangle, and they often
+come at a price.
+
+In the first draft of this essay, I wrote that "dumb code was the new Right
+Thing."  But this is not correct. Dumb code is easy to write, but not very easy
+to maintain. It's what you write when you are a novice, or when you need a quick
+script that will run once. Clever code is worse. It is difficult to write and
+even harder to maintain. (And often, the programmer is not as clever as they
+think.) The balance (as always) is somewhere in the middle, and this is where
+restraint comes in. You write dumb code as a novice, clever code when you know
+just enough to be dangerous, and maintainable code when you have the knowledge
+to be clever, but the wisdom to restrain yourself.
+
+Programmers are right up there next to evangelicals when it comes to being
+dogmatic and bull-headed. There is a reason that famous programming arguments
+have been called "religious wars." We learn design patterns. We learn about
+objects, factories, Single Responsibility and Tell Don't Ask. We learn a slew of
+other acronyms. And we try to use all of this any chance we get, because it's
+the "Right Thing." But that's academic. Anyone in industry is not being paid to
+be academic. The CEO is paying you to (1) ship and (2) not cost them an arm and
+a leg when you decide to leave but your code stays.
+
+I'm not suggesting that we throw all the design concepts out the window. I think
+many of those ideas can still be useful. But we have to be aware that every
+pattern or abstraction we introduce is one more roadblock in the way of that new
+programmer trying to understand our code. So if you decide to introduce that
+roadblock, you'd better have a good justification for doing so. And you know
+that fancy [ServiceLocatorFactoryBean](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/config/ServiceLocatorFactoryBean.html) you've been working on? You're not going to
+need it.
